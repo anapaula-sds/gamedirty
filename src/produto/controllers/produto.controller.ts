@@ -19,6 +19,30 @@ export class ProdutoController {
     return this.produtoService.findById(id);
   }
 
+  @Get('/preco/crescente')
+    @HttpCode(HttpStatus.OK)
+    findByPrecoCrescente(): Promise<Produto[]> {
+      return this.produtoService.findByPrecoCrescente();
+  }
+
+  @Get('/preco/decrescente')
+    @HttpCode(HttpStatus.OK)
+    findByPrecoDecrescente(): Promise<Produto[]> {
+      return this.produtoService.findByPrecoDecrescente();
+  }    
+
+  @Get('/preco-maior-que/:preco')
+  @HttpCode(HttpStatus.OK)
+  findByPrecoMaiorQue(@Param('preco', ParseIntPipe) preco: number): Promise<Produto[]> {
+    return this.produtoService.findByPrecoMaiorQue(preco);
+  }
+
+  @Get('/preco-menor-que/:preco')
+  @HttpCode(HttpStatus.OK)
+  findByPrecoMenorQue(@Param('preco', ParseIntPipe) preco: number): Promise<Produto[]> {
+    return this.produtoService.findByPrecoMenorQue(preco);
+  }
+
   @Post()
     @HttpCode(HttpStatus.CREATED)
     create (@Body() produto: Produto): Promise<Produto>{

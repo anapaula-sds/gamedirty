@@ -39,6 +39,23 @@ export class ProdutoService {
         })
     }
 
+    
+    async findByPrecoCrescente(): Promise<Produto[]> {
+        return await this.produtoRepository.find({
+            order: {
+                preco: 'ASC',
+            },
+        });
+    }
+    
+    async findByPrecoDecrescente(): Promise<Produto[]> {
+        return await this.produtoRepository.find({
+            order: {
+                preco: 'DESC', 
+            },
+        });
+    }
+    
     async create(Produto: Produto): Promise<Produto> {
         return await this.produtoRepository.save(Produto);
     }
@@ -61,6 +78,19 @@ export class ProdutoService {
             throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
 
         return await this.produtoRepository.delete(id);
+    }
 
+    // Consulta: Produtos com preço maior que o valor informado
+    async findByPrecoMaiorQue(preco: number): Promise<Produto[]> {
+        return await this.produtoRepository.find({
+            
+        });
+    }
+
+    // Consulta: Produtos com preço menor que o valor informado
+    async findByPrecoMenorQue(preco: number): Promise<Produto[]> {
+        return await this.produtoRepository.find({
+            
+        });
     }
 }
