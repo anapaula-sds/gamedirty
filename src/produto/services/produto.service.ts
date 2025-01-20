@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, ILike, Repository } from "typeorm";
+import { DeleteResult, ILike, LessThan, MoreThan, Repository } from "typeorm";
 import { Produto } from "../entities/produto.entity";
 
 
@@ -83,14 +83,19 @@ export class ProdutoService {
     // Consulta: Produtos com preço maior que o valor informado
     async findByPrecoMaiorQue(preco: number): Promise<Produto[]> {
         return await this.produtoRepository.find({
-            
+            where: {
+                preco: MoreThan(preco)
+            }
         });
     }
 
     // Consulta: Produtos com preço menor que o valor informado
     async findByPrecoMenorQue(preco: number): Promise<Produto[]> {
         return await this.produtoRepository.find({
-            
+            where: {
+                preco: LessThan(preco), // Substituindo por LessThan
+            },
         });
     }
+    
 }
